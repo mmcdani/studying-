@@ -1,0 +1,106 @@
+---
+title: "homework2"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Task 1: Basic Vector Practice
+
+creating vectors pre teatment and post treatment 
+```{r}
+pre_trt_bp <- c(120, 151, 125, 126, 115, 132, 132, 129, 134, 139, 127, 122, 127, 135, 133, 128, 147, 138, 140, 132)
+
+post_trt_bp <- c(127, 145, 135, 122, 115, 122, 123, 126, 126, 129, 132, 146, 120, 114, 121, 120, 128, 120, 133, 115)
+```
+
+assign names to the vector elements using past function 
+```{r}
+subjects <- paste("Subject", 1:20, sep = "_")
+names(pre_trt_bp) <- names(post_trt_bp) <- subjects 
+```
+
+calculate the change in blood pressure for each patient by subtracting post treatment measurements from pretreatment measurements
+```{r}
+diff_bp <- pre_trt_bp - post_trt_bp
+diff_bp
+```
+
+calculate the average decrease in blood pressure across all patients using the mean() function
+```{r}
+mean(diff_bp)
+```
+
+determine which patients experiences a decrease in blood pressure after treatment(a positive change). use which() function here
+```{r}
+diff_bp[diff_bp > 0]
+```
+
+calculate the average decrease in blood pressure for those where he blood pressure decreased(positive change)
+```{r}
+mean(diff_bp[diff_bp > 0])
+```
+
+## Task 2: Basic Data Frame Practice
+create a data frame object with the four columns corresponding to the data above
+```{r}
+bp_df <- data.frame(
+  patient = subjects, 
+  pre_bp = pre_trt_bp, 
+  post_bp = post_trt_bp, 
+  diff_bp = diff_bp)
+bp_df
+```
+
+return only rows of data frame where the diff_bp column is negative. use [] or learn about subset function. dont reference the original vector from part one acess the column of the data frame
+```{r}
+bp_df[bp_df$diff_bp < 0, ]
+```
+
+Add a new column to the data frame corresponding to TRUE if the post_bp is less than 120 and false if it is not
+```{r}
+bp_df$normal <- bp_df$post_bp < 120
+```
+
+print the data frame nicely to final document 
+```{r}
+knitr::kable(bp_df)
+```
+
+Task 3: List Practice
+
+creating two vectors with pre bp and post bp for placebo group
+```{r}
+pre_bp_placebo <- c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+post_bp_placebo <- c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+```
+
+create a new data frame with this data in it that is similar from the data frame in task 2(including new column of true/false)
+```{r}
+bp_placebo_df <- data.frame(
+  patient = subjects[1:10],
+  pre_bp = pre_bp_placebo,
+  post_bp = post_bp_placebo)
+bp_placebo_df$diff_bp <- bp_placebo_df$pre_bp - bp_placebo_df$post_bp
+bp_placebo_df$normal <- bp_placebo_df$post_bp < 120
+```
+
+now create and store a list with the two elements -- 1st element treatment and 2nd element placebo 
+```{r}
+bp_list <- list(treatment = bp_df, placebo = bp_placebo_df)
+bp_list
+```
+
+access the first list using 3 different types of syntax
+```{r}
+bp_list$treatment 
+bp_list[1]
+bp_list[[1]]
+```
+
+in one line of code access the pre_bp column of the placebo data frame 
+```{r}
+bp_list$placebo$pre_bp
+```
+

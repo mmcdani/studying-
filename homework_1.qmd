@@ -1,0 +1,25 @@
+---
+title: "homework1"
+format: html
+editor: visual
+---
+
+notes for creating a website
+
+a .nojekyll doc needs to be created
+
+a \_quarto.yml needs to be created
+
+this is markdown just plain text
+
+###  hashtags used to make headers 
+ctrl alt i to add a coding block 
+```{r}
+#| echo: false
+y <- density(iris$Petal.Width)
+y
+```
+
+#| echo = false hides code in the final document 
+
+control shift k to do a quick render 

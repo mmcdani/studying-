@@ -1,0 +1,34 @@
+---
+title: "homework_3"
+format: html
+editor: visual
+---
+
+load file
+
+```{r}
+load("hw2_list.rda")
+```
+
+## Task 1: Control Flow Practice
+```{r}
+bp_df$treatment$status <- character(20)
+bp_df$placebo$status <- character(10)
+```
+
+to characterize the post-treatment (or placebo) blood pressure measurement as
+ optimal (≤ 120), borderline (120 < bp ≤ 130), and high (> 130). First, create a new column
+ in each data frame from above called status.
+```{r}
+for (i in 1:nrow(bp_list$treatment)){
+  if(bp_list$treatment$post_bp[i] <= 120){
+bp_list$treatment$status[i] <- "optimal"
+  } else if (bp_list$treatment$post_bp[i] <= 130){
+bp_list$treatment$status[i] <- "borderline"
+  } else {
+bp_list$treatment$status[i] <- "high"
+  }
+}
+```
+ 
+ 
